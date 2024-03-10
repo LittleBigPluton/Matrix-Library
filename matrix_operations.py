@@ -9,24 +9,26 @@ import math
 class Matrix:
 
     # Take class object as a list of matrix's elements
-    def __init__(self,elements):
-        self.elements = elements
+    def __init__(self,init_matrix):
+        self.elements = init_matrix
+        self.rows = len(self.elements)
+        self.columns = len(self.elements[0])
     # Take another matrix's elements and add them by iterating one by one
     # [a1,b1,c1]  [a2,b2,c2]  [a1+a2,b1+b2,c1+c2]
     # [d1,e1,f1]  [d2,e2,f2]  [d1+d2,e1+e2,f1+f2]
-    def addition(self,additions):
+    def addition(self,addition_matrix):
         try:
             # Create empty list to return it
             result = []
             # Iterate rows if the dimensions of the matrices are more than one
             # This iterates dimensions
-            for i in range(len(self.elements)):
+            for i in range(self.rows):
                 # Create empty list to store additions according to rows
                 row = []
                 # This iterates elements in a dimension
-                for j in range(len(self.elements[0])):
+                for j in range(self.columns):
                     # Add two elements with respect to rows one by one
-                    row.append(self.elements[i][j]+additions.elements[i][j])
+                    row.append(self.elements[i][j]+addition_matrix.elements[i][j])
                 # Add summations of the elemens in the row
                 result.append(row)
             return result
@@ -34,7 +36,7 @@ class Matrix:
         except ValueError:
             print("You cannot add this two matrices because they do not have same dimension.")
 
-    def multiplication(self,multiplications):
+    def MatrixMultiplication(self,multiplication_matrix):
         # [a1,b1,c1]    [a2,b2]     [a1*a2 b1*c2 c1*e2]
         # [d1,e1,f1]    [c2,d2]     [d1*b1 e1*d2 f1*f2]
         #               [e2,f2]
@@ -45,14 +47,14 @@ class Matrix:
         try:
             result = []
             # Iterate rows of the first matrix's
-            for i in range(len(self.elements)):
+            for i in range(self.rows):
                 row = []
                 # Iterate columns of the second matrix
-                for j in range(len(multiplications.elements[0])):
+                for j in range(len(multiplication_matrix.elements[0])):
                     multiplication = 0
                     # Iterate coulmn of the first matrix and rows of the second matrix
-                    for k in range(len(self.elements[0])):
-                        multiplication += self.elements[i][k]*multiplications.elements[k][j]
+                    for k in range(self.columns):
+                        multiplication += self.elements[i][k]*multiplication_matrix.elements[k][j]
                     row.append(multiplication)
                 result.append(row)
             return result
@@ -60,14 +62,21 @@ class Matrix:
         except ValueError:
             print("You cannot add this two matrices because they do not have same dimension.")
 
+    def ScalarMultiplication(self,constant):
+        try:
+            pass
+
+        except:
+            pass
+
     def vector_multiplication(self,vector):
         try:
             result = []
             # Iterate rows of the matrix
-            for i in range(len(self.elements)):
+            for i in range(self.rows):
                 product = 0
                 # Iterate columns of the matrix and vector indexes
-                for j in range(len(self.elements[0])):
+                for j in range(self.columns):
                     product += self.elements[i][j] * vector[j]
                 result.append(product)
             return result
@@ -80,9 +89,9 @@ class Matrix:
         # [d,e,f]   -->     [b,e,h]
         # [g,h,I]           [c,f,I]
         result = []
-        for i in range(0,len(self.elements)):
+        for i in range(self.rows):
             row = []
-            for j in range(0,len(self.elements[0])):
+            for j in range(self.columns):
                 row.append(self.elements[j][i])
             result.append(row)
         return result
@@ -95,7 +104,7 @@ M2 = Matrix([[5, 6, 7], [8, 9, 10]])
 V = [1, 2, 3]
 Summation = M1.addition(M2)
 print(Summation)
-Multiplication = M1.multiplication(M2)
+Multiplication = M1.MatrixMultiplication(M2)
 print(Multiplication)
 V_Mult = M1.vector_multiplication(V)
 print(V_Mult)
