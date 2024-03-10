@@ -1,4 +1,6 @@
-#!/usr/bin/python3
+##############################
+####   Import Libraries   ####
+##############################
 
 import math
 
@@ -16,7 +18,7 @@ class Matrix:
     # Take another matrix's elements and add them by iterating one by one
     # [a1,b1,c1]  [a2,b2,c2]  [a1+a2,b1+b2,c1+c2]
     # [d1,e1,f1]  [d2,e2,f2]  [d1+d2,e1+e2,f1+f2]
-    def addition(self,addition_matrix):
+    def Addition(self,addition_matrix):
         try:
             # Create empty list to return it
             result = []
@@ -64,12 +66,16 @@ class Matrix:
 
     def ScalarMultiplication(self,constant):
         try:
-            pass
+            # Iterate all elements through the list/matrix and multiply with entered constant
+            # Return a new list, conserve the original matrix
+            return [[element*constant for element in rows] for rows in self.elements]
+        except TypeError:
+            print("All elements in the matrix must be numbers.")
+        except ValueError:
+            print("Invalid value encountered during multiplication.")
 
-        except:
-            pass
 
-    def vector_multiplication(self,vector):
+    def VectorMultiplication(self,vector):
         try:
             result = []
             # Iterate rows of the matrix
@@ -84,7 +90,7 @@ class Matrix:
         except ValueError:
 
             print("You cannot add this two matrices because they do not have same dimension.")
-    def transpose(self):
+    def Transpose(self):
         # [a,b,c]           [a,d,g]
         # [d,e,f]   -->     [b,e,h]
         # [g,h,I]           [c,f,I]
@@ -95,18 +101,3 @@ class Matrix:
                 row.append(self.elements[j][i])
             result.append(row)
         return result
-
-#Define two matrices orderly
-M1 = Matrix([[1,2],[3,4]])
-M2 = Matrix([[5, 6, 7], [8, 9, 10]])
-
-# For vector multiplication
-V = [1, 2, 3]
-Summation = M1.addition(M2)
-print(Summation)
-Multiplication = M1.MatrixMultiplication(M2)
-print(Multiplication)
-V_Mult = M1.vector_multiplication(V)
-print(V_Mult)
-Transpose = M1.transpose()
-print(Transpose)
